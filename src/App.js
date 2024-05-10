@@ -1,17 +1,17 @@
 import { useState } from "react";
 import NavBar from "./Components/NavBar";
-import Main from "./Components/Main";
+import Main, {tempMovieData} from "./Components/Main";
 
 
 
 export default function App() {
-
+    const [movies, setMovies] = useState(tempMovieData);
   return (
 
       <>
-        <NavBar/>
+        <NavBar movies={movies}/>
 
-        <Main/>
+        <Main movies={movies}/>
       </>
   );
 }
