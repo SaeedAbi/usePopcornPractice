@@ -1,7 +1,8 @@
 import React from 'react';
+import logo from "../../NavBar/Logo";
 
 
-const Star = ({onRate,full}) => {
+const Star = ({onRate,full,onHoverIn,onHoverOut}) => {
     const starStyle={
         width:'48px',
         height:'48px',
@@ -10,7 +11,8 @@ const Star = ({onRate,full}) => {
 
     }
     return (
-        <span role='button' style={starStyle} onClick={onRate}>
+        <span role='button' style={starStyle} onClick={onRate} onMouseEnter={(e)=>onHoverIn(e.target.value)}
+        onMouseLeave={(e)=>onHoverOut(e.target.value)}>
          {full ? ( <svg
              xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 20 20"

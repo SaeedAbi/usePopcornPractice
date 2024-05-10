@@ -3,6 +3,7 @@ import Star from "./Star";
 
 const StarRating = ({maxRating=5}) => {
     const [rating,setRating]=useState(0)
+    const [tempRating,setTempRating]=useState(0)
 
     const handleRating=(rating)=>setRating(rating)
 
@@ -21,9 +22,9 @@ const StarRating = ({maxRating=5}) => {
     return (
         <div style={containerStyle}>
             <div style={starContainerStyle}>
-                {Array.from({length:maxRating},(_,i)=><span>{<Star key={i} onRate={()=>handleRating(i+1)} full={rating>=i+1 }/>}</span>)}
+                {Array.from({length:maxRating},(_,i)=><span>{<Star key={i} onHoverOut={()=>setTempRating(0)} onHoverIn={()=>setTempRating(i+1)} onRate={()=>handleRating(i+1)} full={tempRating? tempRating>=i+1: rating>=i+1 }/>}</span>)}
             </div>
-            <p style={textStyle}>{rating || ''}</p>
+            <p style={textStyle}>{tempRating || rating || ''}</p>
         </div>
     );
 };
