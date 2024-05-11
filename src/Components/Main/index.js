@@ -51,13 +51,9 @@ export const tempWatchedData = [
 
 
 
-const Main=({movies})=> {
-
-
-
+const Main=({children})=> {
     return <main className="main">
-<ListBox movies={movies}/>
-<WatchedBox/>
+        {children}
     </main>
 }
 
