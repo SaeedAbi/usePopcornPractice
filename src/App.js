@@ -15,32 +15,46 @@ import logo from "./Components/NavBar/Logo";
 const key='1068d90a'
 
 export default function App() {
+    const [query,setQuery]=useState('')
     const [movies, setMovies] = useState([]);
     const [watched, setWatched] = useState([]);
     const [isLoading,setIsLoading]=useState(false )
     const [error,setError]=useState('')
+    const [selectedId,setSelectedId]=useState("tt12280634")
+
+
 
     useEffect(() => {
       async function fetchMovies(){
          try {
               setIsLoading(true)
-              const res = await fetch(`http://www.omdbapi.com/?apikey=${key}&s=interstellar`)
+             setError('')
+              const res = await fetch(`http://www.omdbapi.com/?apikey=${key}&s=${query}`)
               if (!res.ok) throw new Error("Something went wrong with fetching movie")
               const data = await res.json()
+             console.log(data)
               setMovies(data.Search)
               setIsLoading(false);
           } catch (err) {
              setError(err.message)
          }
+
         }
+
+        if(query.length< 3) {
+            setMovies([])
+            setError('')
+            return
+        }
+
         fetchMovies()
-    },  []);
+    },  [query]);
 
   return (
 
       <>
         <NavBar>
-            <Search/>
+            <Search query={query} setQuery={setQuery}/>
             <NumResult movies={movies}/>
         </NavBar>
         <Main>
