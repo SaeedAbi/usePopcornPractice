@@ -1,13 +1,6 @@
 import React, {useState} from 'react';
 import Star from "./Star";
-import PropTypes from "prop-types";
 
-StarRating.propTypes={
-    maxRating:PropTypes.number,
-    color: PropTypes.string,
-    message:PropTypes.array,
-    defaultRating:PropTypes.number
-}
 
 const StarRating = ({maxRating=5,color='#fcc419',size=48,message=[],defaultRating=0}) => {
     const [rating,setRating]=useState(defaultRating)

@@ -13,7 +13,7 @@ import MovieDetails from "./Components/Main/MovieList/MovieDetails";
 
 
 
-const key='1068d90a'
+export const key='1068d90a'
 
 export default function App() {
     const [query,setQuery]=useState('')
