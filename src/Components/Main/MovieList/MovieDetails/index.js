@@ -1,14 +1,30 @@
 import {useEffect, useState} from "react";
-import {key, Loader} from "../../../../App";
+import {key} from "../../../../App";
 import StarRating from "../../../StarRating";
 
-const MovieDetails=({selectedId,onCloseMovie})=>{
+const MovieDetails=({selectedId,onCloseMovie,onAddWatch,watched})=>{
     const [movie,setMovie]=useState({})
     const [isLoading,setIsLoading]=useState(false)
+    const [userRating,setUserRating]=useState('')
+
+    const isWatched=watched.map(movie=>movie.imdbID).includes(selectedId)
+    const watchedUserRating=watched.find(movie=>movie.imdbID===selectedId)?.userRating
 
     const {Title:title,Year:year,Poster:poster,Runtime:runtime,imdbRating,Plot:plot,Released:realease,Actors:actors,Director:director,Genrr:genrr}=movie
 
-    console.log(title,year)
+    const handleAdd=()=>{
+        const newWatchedMovie={
+            imdbID:selectedId,
+            title,
+            year,
+            poster,
+            imdbRating:Number(imdbRating),
+            runtime:Number(runtime.split(' ').at(0)),
+            userRating,
+        }
+       onAddWatch(newWatchedMovie)
+        onCloseMovie()
+    }
 
     useEffect(() => {
 async function getMovieDetails(){
@@ -18,7 +34,7 @@ async function getMovieDetails(){
 setMovie(data)
 setIsLoading(false)
 }
-getMovieDetails()
+        getMovieDetails()
     }, [selectedId]);
 
 return <div className='details'>
@@ -36,7 +52,10 @@ return <div className='details'>
     </header>
     <section>
         <div className='rating'>
-        <StarRating maxRating={10} size={24}/>
+            {!isWatched ? <> <StarRating maxRating={10} size={24} onSetRating={setUserRating}/>
+                <button className="btn-add" onClick={handleAdd}>Add to list
+        </button> </>: <p>you rated with movie {watchedUserRating}</p>
+        }
         </div>
         <p> <em>{plot}</em> </p>
     <p>Starring {actors}</p>
