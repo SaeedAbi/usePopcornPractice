@@ -37,6 +37,14 @@ setIsLoading(false)
         getMovieDetails()
     }, [selectedId]);
 
+    useEffect(() => {
+        if (!title) return
+document.title=`movie | ${title}`
+        return function (){
+            document.title='usePopcorn'
+        }
+    }, [title]);
+
 return <div className='details'>
     {isLoading ? <p className='loader'>Loading ...</p>:
         <>
