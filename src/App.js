@@ -52,8 +52,8 @@ function handleDeleteWatched(id){
               setMovies(data.Search)
              setError('')
           } catch (err) {
-             console.error(err.message)
              if (err.name!== 'AbortError'){
+             console.log(err.message)
              setError(err.message)
              }
          } finally {
@@ -67,7 +67,7 @@ function handleDeleteWatched(id){
             setError('')
             return
         }
-
+        handleCloseMovie()
         fetchMovies()
         return function (){
             controller.abort()
